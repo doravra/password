@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [password, setPassword] = useState('');
+  const [ message, setmessage] = useState('null');
+
+
+  const handleChange = (event) => {
+    setPassword(event.target.value);
+
+    if (event.target.value.length === 0) {
+      setmessage('null');
+    }
+
+    if (event.target.value.length < 3 ) {
+      setmessage('Week');}
+      
+      if (event.target.value.length < 7  && event.target.value.length > 2 ) {
+      setmessage('Medium');} 
+      
+      if (event.target.value.length > 6 ) {
+      setmessage('Strong');
+  };
+ }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setPassword('');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Password:
+        <input
+          type="password"
+          value={password}
+          onChange={handleChange}
+          setmessage = {setmessage}
+        />
+      </label>
+            <button type="submit" >
+        Submit
+      </button>
+
+    <p>Your Password Strength  is {message} </p>
+
+    </form>
   );
 }
 
